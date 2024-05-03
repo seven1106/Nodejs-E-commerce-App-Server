@@ -8,14 +8,16 @@ const app = express();
 const env = process.env || "development";
 
 app.use(bodyParser.json());
-app.use(morgan("dev"));
+app.use(morgan("tiny"));
 app.use(cors());
 app.options("*", cors());
-
+const authRouter = require("./routes/auth");
+app.use('/', authRouter);
+//Set up default mongoose connection
 const hostname = env.HOSTNAME || "localhost";
 const port = env.PORT || 3000;
 mongoose.connect(
-  env.MONGODB_CONNECTION_STRING || "mongodb://localhost:27017/test"
+  env.MONGODB_CONNECTION_STRING
 ).then(() => {
     console.log("Connected to MongoDB");
 }).catch((err) => {
