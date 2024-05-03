@@ -12,7 +12,7 @@ app.use(morgan("tiny"));
 app.use(cors());
 app.options("*", cors());
 const authRouter = require("./routes/auth");
-app.use('/', authRouter);
+app.use(`${env.API_URL}/`, authRouter);
 //Set up default mongoose connection
 const hostname = env.HOSTNAME || "localhost";
 const port = env.PORT || 3000;
