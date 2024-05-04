@@ -6,16 +6,16 @@ const cors = require("cors");
 require("dotenv/config");
 const app = express();
 const env = process.env || "development";
-
-app.use(bodyParser.json());
-app.use(morgan("tiny"));
-app.use(cors());
-app.options("*", cors());
+app.use(express.json());
+// app.use(bodyParser.json());
+// app.use(morgan("tiny"));
+// app.use(cors());
+// app.options("*", cors());
 const authRouter = require("./routes/auth");
-app.use(`${env.API_URL}/`, authRouter);
+app.use(`${env.API_URL}`, authRouter);
 //Set up default mongoose connection
-const hostname = env.HOSTNAME || "localhost";
-const port = env.PORT || 3000;
+const HOSTNAME = env.HOSTNAME || "localhost";
+const PORT = env.PORT || 3000;
 mongoose.connect(
   env.MONGODB_CONNECTION_STRING
 ).then(() => {
@@ -24,6 +24,10 @@ mongoose.connect(
     console.log("Error connecting to MongoDB", err);
 }
 );
-app.listen(3000, "0.0.0.0", () => {
-  console.log(`Server is running at http://${hostname}:${port}/`);
+app.get("/", (req, res) => {
+  res.send("Hello World");
+}
+);
+app.listen(PORT, "192.168.145.1", () => {
+  console.log(`connected at port ${PORT}`);
 });

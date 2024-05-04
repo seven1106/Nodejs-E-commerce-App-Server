@@ -8,7 +8,7 @@ exports.signup = async function (req, res) {
             field: error.path,
             message: error.msg,
         }));
-        return res.status(400).json({ errors: errorMessages });
+        return res.status(400).json({ error: errorMessages });
     }
     try {
         const { name, email, password } = req.body;
