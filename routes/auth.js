@@ -11,10 +11,8 @@ const validateUser = [
     body("email").isEmail().withMessage("Enter a valid email address"),
     body("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters long"),
 ];
-router.get("/login", (req, res) => {
-    return res.json({ 'message': "Login successful" });
-});
-router.post("/signup",validateUser, authController.signup);
+router.post("/sign-in", authController.signin);
+router.post("/sign-up",validateUser, authController.signup);
 router.post("/forgot-password",);
 router.post("/verify-otp",);
 router.post("/reset-password",);
