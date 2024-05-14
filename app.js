@@ -12,7 +12,10 @@ app.use(express.json());
 // app.use(cors());
 // app.options("*", cors());
 const authRouter = require("./routes/auth");
+const productRouter = require("./routes/product");
+const vendorRouter = require("./routes/vendor");
 app.use(`${env.API_URL}`, authRouter);
+app.use(`${env.API_URL}`, vendorRouter);
 //Set up default mongoose connection
 const HOSTNAME = env.HOSTNAME || "localhost";
 const PORT = env.PORT || 3000;
@@ -22,10 +25,6 @@ mongoose.connect(
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log("Error connecting to MongoDB", err);
-}
-);
-app.get("/", (req, res) => {
-  res.send("Hello World");
 }
 );
 app.listen(PORT, "192.168.145.1", () => {

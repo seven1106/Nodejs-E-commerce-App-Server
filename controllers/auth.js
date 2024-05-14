@@ -2,6 +2,8 @@ const { validationResult } = require("express-validator");
 const { User } = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+
+
 exports.signup = async function (req, res) {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -12,7 +14,7 @@ exports.signup = async function (req, res) {
     return res.status(400).json({ error: errorMessages });
   }
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, type } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
@@ -24,6 +26,7 @@ exports.signup = async function (req, res) {
       name,
       email,
       password: hashedPassword,
+      type,
     });
     newUser = await newUser.save();
     return res.status(200).json(newUser);
