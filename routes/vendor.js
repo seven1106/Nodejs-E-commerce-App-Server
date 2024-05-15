@@ -5,6 +5,8 @@ const productController = require("../controllers/vendor");
 const middleWare = require("../middlewares/vendor");
 
 router.post("/vendor/add-product", middleWare, productController.addProduct);
+router.get("/vendor/get-products", middleWare, productController.getProducts);
+// router.post("/admin/delete-product", middleWare, productController.getProduct);
 
 
 
