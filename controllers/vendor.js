@@ -27,3 +27,12 @@ exports.getProducts = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 }
+exports.deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.body;
+    let product = await Product.findByIdAndDelete(id);
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
