@@ -6,8 +6,6 @@ const middleWare = require("../middlewares/vendor");
 
 router.post("/vendor/add-product", middleWare, productController.addProduct);
 router.get("/vendor/get-products", middleWare, productController.getProducts);
-router.post("/vendor/delete-product", middleWare, productController.getProduct);
-
-
+router.post("/vendor/delete-product", middleWare, productController.deleteProduct);
 
 module.exports = router;
