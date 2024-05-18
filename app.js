@@ -16,6 +16,7 @@ const productRouter = require("./routes/product");
 const vendorRouter = require("./routes/vendor");
 app.use(`${env.API_URL}`, authRouter);
 app.use(`${env.API_URL}`, vendorRouter);
+app.use(`${env.API_URL}`, productRouter);
 //Set up default mongoose connection
 const HOSTNAME = env.HOSTNAME || "localhost";
 const PORT = env.PORT || 3000;
