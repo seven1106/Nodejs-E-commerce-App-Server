@@ -8,3 +8,4 @@ router.get("/products/", auth, controller.fetchProductsCategory);
 router.get("/products/search/:name", controller.searchProducts);
 
 module.exports = router;
+
