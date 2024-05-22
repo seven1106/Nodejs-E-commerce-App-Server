@@ -7,5 +7,7 @@ router.get("/products/", auth, controller.fetchProductsCategory);
 
 router.get("/products/search/:name", controller.searchProducts);
 
-module.exports = router;
+// create a post request route to rate the product.
+router.post("/products/rate-product", auth, controller.rateProduct);
 
+module.exports = router;
