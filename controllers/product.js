@@ -44,3 +44,23 @@ exports.rateProduct = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 };
+exports.fetchDeals = async (req, res) => {
+  try {
+    let products = await Product.find({});
+    products.sort((a, b) => {
+      let aSum = 0;
+      let bSum = 0;
+      a.ratings.forEach((rating) => {
+        aSum += rating.rating;
+      });
+      b.ratings.forEach((rating) => {
+        bSum += rating.rating;
+      });
+      return aSum < bSum ? 1 : -1;
+    });
+      res.json(products[0]);
+    
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
