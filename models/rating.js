@@ -9,6 +9,10 @@ const ratingSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  comment: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = ratingSchema;

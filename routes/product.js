@@ -12,4 +12,6 @@ router.post("/products/rate-product", auth, controller.rateProduct);
 
 router.get("/products/deals", controller.fetchDeals);
 
+// router.get("/products/rating/:id", controller.fetchRating);
+
 module.exports = router;

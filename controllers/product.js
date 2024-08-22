@@ -22,7 +22,7 @@ exports.searchProducts = async (req, res) => {
 };
 exports.rateProduct = async (req, res) => {
   try {
-    const { id, rating } = req.body;
+    const { id, rating, comment } = req.body;
     let product = await Product.findById(id);
 
     for (let i = 0; i < product.ratings.length; i++) {
@@ -35,6 +35,7 @@ exports.rateProduct = async (req, res) => {
     const ratingSchema = {
       userId: req.user,
       rating,
+      comment,
     };
 
     product.ratings.push(ratingSchema);
