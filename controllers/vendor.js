@@ -2,6 +2,7 @@ const express = require("express");
 const { Product } = require("../models/product");
 const Order = require("../models/order");
 const { PromiseProvider } = require("mongoose");
+const { param } = require("../routes/product");
 
 exports.addProduct = async (req, res) => {
   try {
@@ -22,12 +23,21 @@ exports.addProduct = async (req, res) => {
 };
 exports.getProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({});
     res.json(products);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
 }
+exports.getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+
 exports.getOrders = async (req, res) => {
   try {
     const orders = await Order.find({});
