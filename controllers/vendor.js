@@ -37,7 +37,6 @@ exports.getProductById = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 }
-
 exports.getOrders = async (req, res) => {
   try {
     const orders = await Order.find({});
