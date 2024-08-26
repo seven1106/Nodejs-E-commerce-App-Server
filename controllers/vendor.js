@@ -6,15 +6,34 @@ const { param } = require("../routes/product");
 
 exports.addProduct = async (req, res) => {
   try {
-    const { name, description, images, quantity, price, category } = req.body;
+    const { name, description, images, quantity, price, discountPrice, category } = req.body;
     let product = new Product({
       name,
       description,
       images,
       quantity,
       price,
+      discountPrice,
       category,
+      sellCount: 0,
     });
+    product = await product.save();
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+exports.updateProduct = async (req, res) => {
+  try {
+    const { id, name, description, images, quantity, price, discountPrice, category } = req.body;
+    let product = await Product.findById(id);
+    product.name = name;
+    product.description = description;
+    product.images = images;
+    product.quantity = quantity;
+    product.price = price;
+    product.discountPrice = discountPrice;
+    product.category = category;
     product = await product.save();
     res.json(product);
   } catch (e) {

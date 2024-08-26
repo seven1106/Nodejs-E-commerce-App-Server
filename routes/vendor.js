@@ -11,6 +11,6 @@ router.get("/vendor/get-orders", middleWare, productController.getOrders);
 router.get("/vendor/get-analytics", middleWare, productController.getAnalytics);
 router.post("/vendor/delete-product", middleWare, productController.deleteProduct);
 router.post("/vendor/change-order-status", middleWare, productController.changeOrderStatus);
-
+router.post("/vendor/update-product", middleWare, productController.updateProduct);
 module.exports = router;
 

@@ -26,6 +26,14 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  discountPrice: {
+    type: Number,
+    default: 0,
+  },
+  sellCount: {
+    type: Number,
+    default: 0,
+  },
   category: {
     type: String,
     required: true,
