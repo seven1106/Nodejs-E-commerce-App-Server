@@ -40,7 +40,12 @@ const userSchema = mongoose.Schema({
         required: true,
       },
     },
-    ],
+  ],
+  wishlist: [
+    {
+      product: productSchema,
+    },
+  ],
 });
 const User = mongoose.model('User', userSchema);
 module.exports = { User };

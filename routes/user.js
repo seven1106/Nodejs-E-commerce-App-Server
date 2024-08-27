@@ -118,4 +118,51 @@ router.get("/user/orders/me", auth, async (req, res) => {
   }
 });
 
+// Thêm sản phẩm vào wishlist của người dùng
+router.post("/user/add-to-wishlist", auth, async (req, res) => {
+  try {
+    const { productId } = req.body;
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Sản phẩm không tồn tại" });
+    }
+
+    let user = await User.findById(req.user);
+
+    // Kiểm tra xem sản phẩm đã có trong wishlist chưa
+    const isProductInWishlist = user.wishlist.find((item) =>
+      item.product._id.equals(product._id)
+    );
+    if (isProductInWishlist) {
+      return res.status(400).json({ message: "Sản phẩm đã có trong wishlist" });
+    }
+
+    // Thêm sản phẩm vào wishlist
+    user.wishlist.push({ product: product });
+    await user.save();
+
+    res.status(200).json({ message: "Đã thêm sản phẩm vào wishlist", wishlist: user.wishlist });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+// Xóa sản phẩm khỏi wishlist của người dùng
+router.delete("/user/remove-from-wishlist/:id", auth, async (req, res) => {
+  try {
+    const { id } = req.params;
+    let user = await User.findById(req.user);
+    const productIndex = user.wishlist.indexOf(id);
+    // Xóa sản phẩm khỏi wishlist
+    user.wishlist.splice(productIndex, 1);
+    await user.save();
+
+    res.status(200).json({ message: "Đã xóa sản phẩm khỏi wishlist", wishlist: user.wishlist });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
+
+
 module.exports = router;
