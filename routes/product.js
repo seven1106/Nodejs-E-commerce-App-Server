@@ -12,5 +12,4 @@ router.post("/products/rate-product", auth, controller.rateProduct);
 
 router.get("/products/deals", controller.fetchDeals);
 
-
 module.exports = router;
