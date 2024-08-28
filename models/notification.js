@@ -20,16 +20,14 @@ const notificationSchema = mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    userId: {
+    orderId: {
         type: String,
         required: true,
     },
-    createAt: {
+    createTime: {
         type: Number,
         required: true,
     },
-    }, {
-    timestamps: true,
-});
+    });
 const Notification = mongoose.model("Notification", notificationSchema);
 module.exports = {Notification, notificationSchema};

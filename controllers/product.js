@@ -56,7 +56,7 @@ exports.fetchDeals = async (req, res) => {
     products.sort((a, b) => {
       let aSum = calculateTotalRating(a);
       let bSum = calculateTotalRating(b);
-      return bSum - aSum; 
+      return bSum - aSum;
     });
 
     res.json(products);

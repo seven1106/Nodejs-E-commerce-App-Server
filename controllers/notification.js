@@ -1,34 +1,8 @@
 const { Notification } = require("../models/notification");
 
-// Tạo một thông báo mới
-exports.createNotification = async (req, res) => {
-    try {
-        const { title, content, type, userId } = req.body;
-        const notification = new Notification({
-            title,
-            content,
-            type,
-            userId,
-            createAt: Date.now(),
-        });
 
-        await notification.save();
-        res.status(201).json(notification);
-    } catch (error) {
-        res.status(500).json({ message: "Failed to create notification", error: error.message });
-    }
-};
 
-// Lấy tất cả thông báo của một người dùng
-exports.getUserNotifications = async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const notifications = await Notification.find({ userId }).sort({ createdAt: -1 });
-        res.status(200).json(notifications);
-    } catch (error) {
-        res.status(500).json({ message: "Failed to get notifications", error: error.message });
-    }
-};
+
 
 // Đánh dấu thông báo là đã đọc
 exports.markAsRead = async (req, res) => {

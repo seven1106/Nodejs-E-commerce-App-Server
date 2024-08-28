@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
 const Order = require("../models/order");
+const {Notification} = require("../models/notification");
 const { Product } = require("../models/product");
 const { User } = require("../models/user");
 
@@ -107,7 +108,28 @@ router.post("/user/order", auth, async (req, res) => {
       orderedAt: new Date().getTime(),
     });
     order = await order.save();
-    res.json(order);
+    res.json({ order });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+// order product
+router.post("/user/notification", auth, async (req, res) => {
+  try {
+    const { title, content, type, orderId, receiverId } = req.body;
+    let user = await User.findById(receiverId);
+    let notification = new Notification({
+      title,
+      content,
+      type,
+      orderId,
+      createTime: new Date().getTime(),
+    });
+    user.notifications.push({
+      notify: notification,
+    },);
+    await user.save();
+    res.json(notification);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }

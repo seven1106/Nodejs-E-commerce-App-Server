@@ -6,9 +6,10 @@ const { param } = require("../routes/product");
 
 exports.addProduct = async (req, res) => {
   try {
-    const { name, description, images, quantity, price, discountPrice, category } = req.body;
+    const { name, sellerId, description, images, quantity, price, discountPrice, category } = req.body;
     let product = new Product({
       name,
+      sellerId,
       description,
       images,
       quantity,
