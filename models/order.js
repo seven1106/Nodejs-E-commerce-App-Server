@@ -23,6 +23,18 @@ const orderSchema = mongoose.Schema({
     required: true,
     type: String,
   },
+  receiverName: {
+    required: true,
+    type: String,
+  },
+  receiverPhone: {
+    required: true,
+    type: String,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+  },
   orderedAt: {
     type: Number,
     required: true,

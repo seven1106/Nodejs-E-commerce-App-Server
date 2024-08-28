@@ -14,7 +14,7 @@ exports.signup = async function (req, res) {
     return res.status(400).json({ error: errorMessages });
   }
   try {
-    const { name, email, password, type } = req.body;
+    const { name, email, phone, password, type } = req.body;
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res
@@ -25,6 +25,7 @@ exports.signup = async function (req, res) {
     var newUser = new User({
       name,
       email,
+      phone,
       password: hashedPassword,
       type,
     });

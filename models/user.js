@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { productSchema } = require("./product");
+const { notificationSchema } = require("./notification");
 
 const userSchema = mongoose.Schema({
   name: {
@@ -28,6 +29,10 @@ const userSchema = mongoose.Schema({
     type: String,
     default: "",
   },
+  phone: {
+    type: String,
+    default: "",
+  },
   type: {
     type: String,
     default: "user",
@@ -44,6 +49,11 @@ const userSchema = mongoose.Schema({
   wishlist: [
     {
       product: productSchema,
+    },
+  ],
+  notifications: [
+    {
+      notify: notificationSchema,
     },
   ],
 });

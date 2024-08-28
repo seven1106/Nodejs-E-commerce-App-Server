@@ -75,7 +75,7 @@ router.post("/user/save-user-address", auth, async (req, res) => {
 // order product
 router.post("/user/order", auth, async (req, res) => {
   try {
-    const { cart, totalPrice, address } = req.body;
+    const { cart, totalPrice, address, receiverName, receiverPhone, paymentMethod } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -100,6 +100,9 @@ router.post("/user/order", auth, async (req, res) => {
       products,
       totalPrice,
       address,
+      receiverName,
+      receiverPhone,
+      paymentMethod,
       userId: req.user,
       orderedAt: new Date().getTime(),
     });
