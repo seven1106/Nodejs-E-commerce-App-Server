@@ -24,6 +24,7 @@ const notificationSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    
     createTime: {
         type: Number,
         required: true,

@@ -113,7 +113,6 @@ router.post("/user/order", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-// order product
 router.post("/user/notification", auth, async (req, res) => {
   try {
     const { title, content, type, orderId, receiverId } = req.body;
@@ -134,6 +133,22 @@ router.post("/user/notification", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+router.post("/user/mark-as-read", auth, async (req, res) => {
+  try {
+    const { id, uid } = req.body;
+    let user = await User.findById(uid);
+    for (let i = 0; i < user.notifications.length; i++) {
+      if (user.notifications[i].notify._id.equals(id)) {
+        user.notifications[i].notify.isRead = true;
+      }
+    }
+    await user.save();
+    res.json(user.notifications);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+);
 
 router.get("/user/orders/me", auth, async (req, res) => {
   try {

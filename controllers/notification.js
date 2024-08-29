@@ -1,10 +1,4 @@
 const { Notification } = require("../models/notification");
-
-
-
-
-
-// Đánh dấu thông báo là đã đọc
 exports.markAsRead = async (req, res) => {
     try {
         const { id } = req.params;

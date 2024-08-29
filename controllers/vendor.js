@@ -65,6 +65,14 @@ exports.getOrders = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 }
+exports.getOrdersById = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id);
+    res.json(order);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
 exports.deleteProduct = async (req, res) => {
   try {
     const { id } = req.body;
