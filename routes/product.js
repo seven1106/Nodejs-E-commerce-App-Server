@@ -1,15 +1,18 @@
 const express = require("express");
 const auth = require("../middlewares/auth");
 const controller = require("../controllers/product");
-const router = express.Router();
+const ProductRouter = express.Router();
 
-router.get("/products/", auth, controller.fetchProductsCategory);
+ProductRouter.get("/products/", auth, controller.fetchProductsCategory);
 
-router.get("/products/search/:name", controller.searchProducts);
+ProductRouter.get("/products/search/:name", controller.searchProducts);
 
 // create a post request route to rate the product.
-router.post("/products/rate-product", auth, controller.rateProduct);
+ProductRouter.post("/products/rate-product", auth, controller.rateProduct);
 
-router.get("/products/deals", controller.fetchDeals);
+ProductRouter.get("/products/deals", controller.fetchDeals);
+ProductRouter.get("/products/new-product", controller.fetchAllProduct);
+ProductRouter.get("/products/best-seller-product", controller.fetchBestSellerProducts);
+ProductRouter.get("/products/best-sale-product", controller.fetchTopDeals);
 
-module.exports = router;
+module.exports = ProductRouter;

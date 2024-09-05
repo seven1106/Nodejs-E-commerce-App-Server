@@ -1,12 +1,12 @@
 const express = require("express");
-const router = express.Router();
+const userRouter = express.Router();
 const auth = require("../middlewares/auth");
 const Order = require("../models/order");
 const {Notification} = require("../models/notification");
 const { Product } = require("../models/product");
 const { User } = require("../models/user");
 
-router.post("/user/add-to-cart", auth, async (req, res) => {
+userRouter.post("/user/add-to-cart", auth, async (req, res) => {
   try {
     const { id } = req.body;
     const product = await Product.findById(id);
@@ -38,7 +38,7 @@ router.post("/user/add-to-cart", auth, async (req, res) => {
   }
 });
 
-router.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
+userRouter.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
@@ -61,7 +61,7 @@ router.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
 });
 
 // save user address
-router.post("/user/save-user-address", auth, async (req, res) => {
+userRouter.post("/user/save-user-address", auth, async (req, res) => {
   try {
     const { address } = req.body;
     let user = await User.findById(req.user);
@@ -74,7 +74,7 @@ router.post("/user/save-user-address", auth, async (req, res) => {
 });
 
 // order product
-router.post("/user/order", auth, async (req, res) => {
+userRouter.post("/user/order", auth, async (req, res) => {
   try {
     const { cart, totalPrice, address, receiverName, receiverPhone, paymentMethod } = req.body;
     let products = [];
@@ -113,7 +113,7 @@ router.post("/user/order", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-router.post("/user/notification", auth, async (req, res) => {
+userRouter.post("/user/notification", auth, async (req, res) => {
   try {
     const { title, content, type, orderId, receiverId } = req.body;
     let user = await User.findById(receiverId);
@@ -133,7 +133,7 @@ router.post("/user/notification", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-router.post("/user/mark-as-read", auth, async (req, res) => {
+userRouter.put("/user/mark-as-read", auth, async (req, res) => {
   try {
     const { id, uid } = req.body;
     let user = await User.findById(uid);
@@ -150,7 +150,7 @@ router.post("/user/mark-as-read", auth, async (req, res) => {
 }
 );
 
-router.get("/user/orders/me", auth, async (req, res) => {
+userRouter.get("/user/orders/me", auth, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.user });
     res.json(orders);
@@ -160,7 +160,7 @@ router.get("/user/orders/me", auth, async (req, res) => {
 });
 
 // Thêm sản phẩm vào wishlist của người dùng
-router.post("/user/add-to-wishlist", auth, async (req, res) => {
+userRouter.post("/user/add-to-wishlist", auth, async (req, res) => {
   try {
     const { productId } = req.body;
     const product = await Product.findById(productId);
@@ -189,7 +189,7 @@ router.post("/user/add-to-wishlist", auth, async (req, res) => {
 });
 
 // Xóa sản phẩm khỏi wishlist của người dùng
-router.delete("/user/remove-from-wishlist/:id", auth, async (req, res) => {
+userRouter.delete("/user/remove-from-wishlist/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
     let user = await User.findById(req.user);
@@ -206,4 +206,4 @@ router.delete("/user/remove-from-wishlist/:id", auth, async (req, res) => {
 
 
 
-module.exports = router;
+module.exports = userRouter;

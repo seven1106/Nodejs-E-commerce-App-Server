@@ -61,7 +61,7 @@ exports.validateToken = async function (req, res) {
     if (!verified) return res.json(false);
     const user = await User.findById(verified.id);
     if (!user) return res.json(false);
-    return res.json(true);
+    return res.json(true);  
   } catch (error) {
     return res.status(500).json({ error: error.message, type: error.name });
   }

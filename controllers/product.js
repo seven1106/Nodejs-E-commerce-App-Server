@@ -64,4 +64,51 @@ exports.fetchDeals = async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 };
+exports.fetchAllProduct = async (req, res) => {
+  try {
+    let products = await Product.find({});
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+exports.fetchAllProduct = async (req, res) => {
+  try {
+    let products = await Product.find({});
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+exports.fetchBestSellerProducts = async (req, res) => {
+  try {
+    let products = await Product.find({}).sort({ sellCount: -1 });
+
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+exports.fetchTopDeals = async (req, res) => {
+  try {
+    let products = await Product.aggregate([
+      {
+        $addFields: {
+          discountAmount: { $subtract: ["$price", "$discountPrice"] }
+        }
+      },
+      { 
+        $sort: { discountAmount: -1 }
+      },
+      { 
+        $limit: 10
+      }
+    ]);
+
+    res.json(products);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+};
+
 
