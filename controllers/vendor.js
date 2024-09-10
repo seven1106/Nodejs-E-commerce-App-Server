@@ -84,9 +84,10 @@ exports.deleteProduct = async (req, res) => {
 };
 exports.changeOrderStatus = async (req, res) => {
   try {
-    const { id, status } = req.body;
+    const { id, status, message } = req.body;
     let order = await Order.findById(id);
     order.status = status;
+    order.description = message;
     order = await order.save();
     res.json(order);
   } catch (e) {

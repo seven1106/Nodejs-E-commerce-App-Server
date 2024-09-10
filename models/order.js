@@ -15,6 +15,10 @@ const orderSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  initialPrice: {
+    type: Number,
+    required: true,
+  },
   address: {
     type: String,
     required: true,
@@ -43,6 +47,16 @@ const orderSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  description: {
+    type: String,
+    required: false,
+  },
+  voucherId: {
+    type: String,
+    default: "",
+    required: false,
+  },
+
 });
 
 const Order = mongoose.model("Order", orderSchema);

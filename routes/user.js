@@ -37,6 +37,14 @@ userRouter.post("/user/add-to-cart", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
+userRouter.get("/notifications", auth, async (req, res) => {
+  try {
+    let user = await User.findById(req.user);
+    res.json(user.notifications);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 
 userRouter.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
   try {
@@ -76,7 +84,7 @@ userRouter.post("/user/save-user-address", auth, async (req, res) => {
 // order product
 userRouter.post("/user/order", auth, async (req, res) => {
   try {
-    const { cart, totalPrice, address, receiverName, receiverPhone, paymentMethod } = req.body;
+    const { cart, totalPrice, address, receiverName, receiverPhone, paymentMethod, voucherId, initialPrice } = req.body;
     let products = [];
 
     for (let i = 0; i < cart.length; i++) {
@@ -104,6 +112,9 @@ userRouter.post("/user/order", auth, async (req, res) => {
       receiverName,
       receiverPhone,
       paymentMethod,
+      initialPrice,
+      description: "",
+      voucherId: voucherId,
       userId: req.user,
       orderedAt: new Date().getTime(),
     });
