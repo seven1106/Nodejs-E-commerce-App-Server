@@ -40,7 +40,7 @@ userRouter.post("/user/add-to-cart", auth, async (req, res) => {
 userRouter.get("/notifications", auth, async (req, res) => {
   try {
     let user = await User.findById(req.user);
-    res.json(user.notifications);
+    res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -154,8 +154,8 @@ userRouter.post("/user/mark-as-read", auth, async (req, res) => {
         user.notifications[i].notify.isRead = true;
       }
     }
-    await user.save();
-    res.json(user.notifications);
+    user = await user.save();
+    res.json(user);
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
