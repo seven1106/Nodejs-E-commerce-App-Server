@@ -45,8 +45,6 @@ userRouter.get("/notifications", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
-
 userRouter.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -68,7 +66,20 @@ userRouter.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
+userRouter.post("/user/edit-user-info", auth, async (req, res) => {
+  try {
+    const { name, email, phone } = req.body;
+    let
+      user = await User.findById(req.user);
+    user.name = name;
+    user.email = email;
+    user.phone = phone;
+    user = await user.save();
+    res.json(user);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
 // save user address
 userRouter.post("/user/save-user-address", auth, async (req, res) => {
   try {
