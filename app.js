@@ -1,9 +1,14 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 require("dotenv/config");
+
 const app = express();
 const env = process.env || "development";
 app.use(express.json());
+
+app.use(cors());
+
 const authRouter = require("./routes/auth");
 const productRouter = require("./routes/product");
 const vendorRouter = require("./routes/vendor");
@@ -16,7 +21,7 @@ app.use(`${env.API_URL}`, productRouter);
 app.use(`${env.API_URL}`, userRouter);
 app.use(`${env.API_URL}`, voucherRouter);
 
-//Set up default mongoose connection
+// Set up default mongoose connection
 const HOSTNAME = env.HOSTNAME || "localhost";
 const PORT = env.PORT || 3000;
 mongoose.connect(
@@ -25,8 +30,9 @@ mongoose.connect(
     console.log("Connected to MongoDB");
 }).catch((err) => {
     console.log("Error connecting to MongoDB", err);
-}
-);
+});
+
+// Start server
 app.listen(PORT, "192.168.145.1", () => {
-  console.log(`connected at port ${PORT}`);
+  console.log(`Connected at port ${PORT}`);
 });
