@@ -46,6 +46,7 @@ userRouter.get("/notifications", auth, async (req, res) => {
   }
 });
 
+
 userRouter.delete("/user/remove-from-cart/:id", auth, async (req, res) => {
   try {
     const { id } = req.params;
@@ -144,7 +145,7 @@ userRouter.post("/user/notification", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-userRouter.put("/user/mark-as-read", auth, async (req, res) => {
+userRouter.post("/user/mark-as-read", auth, async (req, res) => {
   try {
     const { id, uid } = req.body;
     let user = await User.findById(uid);
@@ -214,7 +215,5 @@ userRouter.delete("/user/remove-from-wishlist/:id", auth, async (req, res) => {
     res.status(500).json({ error: e.message });
   }
 });
-
-
 
 module.exports = userRouter;
