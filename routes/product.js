@@ -5,6 +5,8 @@ const ProductRouter = express.Router();
 
 ProductRouter.get("/products/", auth, controller.fetchProductsCategory);
 
+ProductRouter.get("/get-products/:id", auth, controller.getProductById);
+
 ProductRouter.get("/products/search/:name", controller.searchProducts);
 
 // create a post request route to rate the product.

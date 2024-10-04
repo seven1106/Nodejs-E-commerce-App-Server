@@ -1,6 +1,15 @@
 const express = require("express");
 const { Product } = require("../models/product");
 
+exports.getProductById = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    res.json(product);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+}
+
 exports.fetchProductsCategory = async (req, res) => {
   try {
     const products = await Product.find({ category: req.query.category });
